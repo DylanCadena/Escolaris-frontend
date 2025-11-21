@@ -1,0 +1,12 @@
+<aside class="sidebar">
+  <nav class="sidebar-nav">
+    <ul class="menu-list">
+      <li *ngFor="let item of menuItems" class="menu-item">
+        <a [routerLink]="item.route" routerLinkActive="active">
+          <i [class]="item.icon"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

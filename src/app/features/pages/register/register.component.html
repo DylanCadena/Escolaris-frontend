@@ -1,0 +1,73 @@
+<div class="register-wrapper">
+  <!-- Header -->
+  <header class="register-header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="escolaris_logo.png" alt="Escolaris Logo">
+        <span>ESCOLARIS</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn-outline" (click)="navigateToLogin()">INICIAR SESIÓN</button>
+        <button class="btn-primary-header">REGISTRARSE</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="register-page">
+    <section class="card">
+      <h1>Crear una cuenta</h1>
+      <p class="subtitle">Complete el formulario para registrarse en Escolaris</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombres</label>
+            <input id="firstName" type="text" formControlName="firstName" placeholder="Ingrese sus nombres" />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Apellidos</label>
+            <input id="lastName" type="text" formControlName="lastName" placeholder="Ingrese sus apellidos" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo institucional</label>
+          <input id="email" type="email" formControlName="email" placeholder="ejemplo@escolaris.edu.ec" />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Número de teléfono</label>
+          <input id="phone" type="tel" formControlName="phone" placeholder="0987654321" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Crear contraseña</label>
+          <input id="password" type="password" formControlName="password" placeholder="Cree una contraseña segura" />
+          <small class="password-hint">La contraseña debe tener al menos 8 caracteres con letras, números y caracteres especiales</small>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirme su contraseña" />
+        </div>
+
+        <div class="form-checkbox">
+          <input id="acceptTerms" type="checkbox" formControlName="acceptTerms" />
+          <label for="acceptTerms">
+            Acepto los <a href="#">Términos de Servicio</a> y la <a href="#">Política de Privacidad</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="!form.valid">Crear cuenta</button>
+      </form>
+
+      <p class="login-link">
+        ¿Ya tiene una cuenta? <a routerLink="/login">Inicie sesión</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+</div>

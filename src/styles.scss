@@ -1,55 +1,210 @@
-/* VS Code inspired theme variables */
+/* Escolaris Theme Variables */
 :root {
-  --vscode-blue: #1e1e1e;
-  --vscode-blue-lighter: #252526;
-  --vscode-blue-light: #333333;
-  --vscode-accent: #007acc;
-  --vscode-accent-hover: #1a8cd8;
-  --vscode-text: #cccccc;
+  // Colores principales del tema azul
+  --primary-blue: #2563eb;
+  --primary-blue-dark: #1e40af;
+  --primary-blue-light: #60a5fa;
+  --primary-blue-lighter: #3b82f6;
+  
+  // Colores de fondo
+  --bg-dark: #1e293b;
+  --bg-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  --bg-card: #252526;
+  --bg-input: #333333;
+  
+  // Colores de texto
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-dark: #1e40af;
+  
+  // Colores de texto para dashboard (fondo claro)
+  --dashboard-title: #003d82;
+  --dashboard-text: #1e293b;
+  --dashboard-text-secondary: #64748b;
+  
+  // Colores de acento
+  --accent: #60a5fa;
+  --accent-hover: #3b82f6;
+  
+  // Bordes y sombras
+  --border-color: #404040;
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+  
+  // Compatibilidad - ahora usan los colores azules del landing
+  --vscode-blue: #2563eb;
+  --vscode-blue-lighter: #3b82f6;
+  --vscode-blue-light: #60a5fa;
+  --vscode-accent: #60a5fa;
+  --vscode-accent-hover: #3b82f6;
+  --vscode-text: rgba(255, 255, 255, 0.9);
   --vscode-text-light: #ffffff;
-  --vscode-border: #404040;
+  --vscode-border: rgba(255, 255, 255, 0.2);
 }
 
-/* Base styles */
+/* Reset y estilos base */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--vscode-blue);
-  color: var(--vscode-text);
+  background: var(--bg-gradient);
+  color: var(--text-primary);
 }
 
-/* Common components styling */
-.card {
-  background-color: var(--vscode-blue-lighter);
-  border: 1px solid var(--vscode-border);
-  border-radius: 4px;
-  padding: 1rem;
-}
-
-.button {
-  background-color: var(--vscode-accent);
-  color: var(--vscode-text-light);
+/* Utilidades globales de botones */
+.btn-primary {
+  background-color: white;
+  color: var(--text-dark);
+  padding: 1.2rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  text-align: center;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
 
   &:hover {
-    background-color: var(--vscode-accent-hover);
+    background-color: #f0f9ff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
 }
 
+.btn-secondary {
+  background-color: var(--primary-blue-light);
+  color: white;
+  padding: 1.2rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    background-color: var(--primary-blue-lighter);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+/* Utilidades de fondos */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, var(--primary-blue-light) 0%, var(--primary-blue-lighter) 100%);
+}
+
+.bg-dark {
+  background-color: var(--bg-dark);
+}
+
+/* Utilidades de tarjetas */
+.card {
+  background-color: var(--vscode-blue-lighter);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+}
+
+/* Utilidades de inputs */
 .input {
-  background-color: var(--vscode-blue-light);
-  border: 1px solid var(--vscode-border);
-  color: var(--vscode-text);
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.6rem;
   border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.95rem;
   
   &:focus {
     outline: none;
-    border-color: var(--vscode-accent);
+    border-color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Utilidades de texto */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilos globales para contenido del dashboard */
+.dashboard-content,
+.page-container {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--dashboard-title);
+  }
+
+  p, span, label {
+    color: var(--dashboard-text);
+  }
+
+  .text-secondary {
+    color: var(--dashboard-text-secondary);
+  }
+}
+
+/* Animación morph global */
+@keyframes morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  25% {
+    border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+  }
+  50% {
+    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+  }
+  75% {
+    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+  }
+}
+
+/* Utilidades responsive */
+@media (max-width: 768px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
   }
 }

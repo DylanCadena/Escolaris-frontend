@@ -1,0 +1,105 @@
+<div class="register-grades">
+  <h1 class="title">Registrar calificaciones</h1>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>MATERIA</label>
+      <select [(ngModel)]="selectedSubject">
+        <option value="">Seleccionar materia</option>
+        <option value="matematicas">Matemáticas</option>
+        <option value="lengua">Lengua y Literatura</option>
+        <option value="ciencias">Ciencias Naturales</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>GRUPO</label>
+      <select [(ngModel)]="selectedGroup">
+        <option value="">Seleccionar grupo</option>
+        <option value="a">Grupo A</option>
+        <option value="b">Grupo B</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>PERIODO</label>
+      <select [(ngModel)]="selectedPeriod">
+        <option value="">Seleccionar periodo</option>
+        <option value="q1">Quimestre 1</option>
+        <option value="q2">Quimestre 2</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>TIPO DE EVALUACIÓN</label>
+      <select [(ngModel)]="selectedEvaluation">
+        <option value="">Seleccionar tipo</option>
+        <option value="deberes">Deberes</option>
+        <option value="trabajos">Trabajos Grupales</option>
+        <option value="actuaciones">Actuaciones</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="grades-table">
+      <thead>
+        <tr>
+          <th class="student-name">NOMBRE</th>
+          <th class="grade-column">DEBERES</th>
+          <th class="grade-column">TRABAJOS GRUPALES</th>
+          <th class="grade-column">ACTUACIONES</th>
+          <th class="average-column">PROMEDIO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td class="student-name">{{ student.name }}</td>
+          <td class="grade-column">
+            <input 
+              type="number" 
+              [(ngModel)]="student.deberes"
+              (ngModelChange)="onGradeChange(student)"
+              min="0" 
+              max="10" 
+              step="0.01"
+              class="grade-input"
+            />
+          </td>
+          <td class="grade-column">
+            <input 
+              type="number" 
+              [(ngModel)]="student.trabajosGrupales"
+              (ngModelChange)="onGradeChange(student)"
+              min="0" 
+              max="10" 
+              step="0.01"
+              class="grade-input"
+            />
+          </td>
+          <td class="grade-column">
+            <input 
+              type="number" 
+              [(ngModel)]="student.actuaciones"
+              (ngModelChange)="onGradeChange(student)"
+              min="0" 
+              max="10" 
+              step="0.01"
+              class="grade-input"
+            />
+          </td>
+          <td class="average-column" [ngClass]="student.status">
+            {{ student.promedio | number:'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="actions">
+    <button class="save-btn" (click)="saveGrades()">
+      <i class="fas fa-save"></i>
+      Guardar Calificaciones
+    </button>
+  </div>
+</div>

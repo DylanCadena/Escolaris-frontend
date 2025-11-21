@@ -1,0 +1,201 @@
+.register-grades {
+  padding: 2rem;
+  max-width: 100%;
+
+  .title {
+    color: var(--dashboard-title);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--dashboard-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      select {
+        padding: 0.7rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: var(--dashboard-text);
+        background-color: white;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          border-color: #94a3b8;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #2563eb;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+      }
+    }
+  }
+
+  .table-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-bottom: 2rem;
+
+    .grades-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: #f8fafc;
+        border-bottom: 2px solid #e2e8f0;
+
+        th {
+          padding: 1rem;
+          text-align: center;
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: var(--dashboard-text);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+
+          &.student-name {
+            text-align: left;
+            min-width: 300px;
+          }
+
+          &.grade-column {
+            min-width: 120px;
+            background-color: #fef3c7;
+          }
+
+          &.average-column {
+            min-width: 100px;
+            background-color: #fde68a;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid #e2e8f0;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: #f8fafc;
+          }
+
+          td {
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+
+            &.student-name {
+              text-align: left;
+              font-weight: 500;
+              color: var(--dashboard-text);
+            }
+
+            &.grade-column {
+              background-color: #fffbeb;
+
+              .grade-input {
+                width: 80px;
+                padding: 0.5rem;
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 0.9rem;
+                font-weight: 600;
+                transition: all 0.2s;
+
+                &:focus {
+                  outline: none;
+                  border-color: #2563eb;
+                  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+                }
+
+                &:hover {
+                  border-color: #94a3b8;
+                }
+              }
+            }
+
+            &.average-column {
+              font-weight: 700;
+              font-size: 1rem;
+              background-color: #fef3c7;
+
+              &.approved {
+                color: #15803d;
+              }
+
+              &.risk {
+                color: #ea580c;
+              }
+
+              &.failed {
+                color: #dc2626;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .save-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
