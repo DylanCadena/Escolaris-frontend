@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
 export class RegisterComponent {
   form;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -28,8 +29,23 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      // Simular registro exitoso y navegar al login
-      this.router.navigate(['/login']);
+      const { confirmPassword, acceptTerms, ...userData } = this.form.value;
+
+      if (userData.password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      this.authService.register(userData).subscribe({
+        next: (response) => {
+          console.log('Registration successful', response);
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error('Registration failed', error);
+          alert('Registration failed: ' + (error.error.message || 'Unknown error'));
+        }
+      });
     }
   }
 

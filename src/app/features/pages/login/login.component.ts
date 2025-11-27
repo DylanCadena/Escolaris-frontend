@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
 export class LoginComponent {
   form;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -23,8 +24,16 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      // Simular login exitoso y navegar al dashboard
-      this.router.navigate(['/dashboard/home']);
+      this.authService.login(this.form.value).subscribe({
+        next: (response) => {
+          console.log('Login successful', response);
+          this.router.navigate(['/dashboard/home']);
+        },
+        error: (error) => {
+          console.error('Login failed', error);
+          alert('Login failed: ' + (error.error.message || 'Unknown error'));
+        }
+      });
     }
   }
 
