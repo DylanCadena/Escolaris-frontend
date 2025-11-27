@@ -1,13 +1,35 @@
 <div class="grades">
   <h1>Gestión de Notas</h1>
-  <p>Puedes cargar un archivo CSV o ingresar las calificaciones manualmente.</p>
+  <p>Carga un archivo Excel con las columnas: Nombre, Materia, Tareas, Trabajos grupales.</p>
 
   <div class="upload-section">
-    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
-    <button (click)="upload()">Subir archivo</button>
+    <input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" />
+    <button (click)="upload()" [disabled]="!gradesData.length">Subir archivo</button>
   </div>
 
-  <div *ngIf="fileName">
-    <p>Archivo seleccionado: {{ fileName }}</p>
+  <div *ngIf="fileName" class="preview-section">
+    <p><strong>Archivo:</strong> {{ fileName }}</p>
+    
+    <div *ngIf="gradesData.length > 0" class="table-container">
+      <h3>Vista Previa</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Materia</th>
+            <th>Tareas</th>
+            <th>Trabajos Grupales</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let grade of gradesData">
+            <td>{{ grade.studentName }}</td>
+            <td>{{ grade.subject }}</td>
+            <td>{{ grade.homework }}</td>
+            <td>{{ grade.groupWork }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

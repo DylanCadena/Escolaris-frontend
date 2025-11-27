@@ -20,5 +20,21 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
     }
+
+  }
+}
+
+.table-container {
+  color: black;
+  table {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th,
+  td {
+    text-align: center;
+    padding: 0.6em;
   }
 }
