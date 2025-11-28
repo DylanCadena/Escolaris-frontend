@@ -13,7 +13,11 @@ const gradeSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  groupWork: {
+  groupwork: {
+    type: Number,
+    default: 0
+  },
+  exams: {
     type: Number,
     default: 0
   },

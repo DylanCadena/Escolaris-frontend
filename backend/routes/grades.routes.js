@@ -37,4 +37,37 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Bulk update grades
+router.put('/bulk-update', async (req, res) => {
+  try {
+    const updates = req.body; // Array of grade objects with _id
+    
+    if (!Array.isArray(updates)) {
+      return res.status(400).json({ message: 'Invalid data format' });
+    }
+
+    const operations = updates.map(grade => ({
+      updateOne: {
+        filter: { _id: grade._id },
+        update: { 
+          $set: { 
+            homework: grade.homework,
+            groupWork: grade.groupWork,
+            exams: grade.exams
+          } 
+        }
+      }
+    }));
+
+    if (operations.length > 0) {
+      await Grade.bulkWrite(operations);
+    }
+
+    res.json({ message: 'Grades updated successfully' });
+  } catch (error) {
+    console.error('Error updating grades:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 module.exports = router;
