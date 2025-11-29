@@ -1,6 +1,6 @@
 <div class="grades">
   <h1>Gestión de Notas</h1>
-  <p>Carga un archivo Excel con las columnas: Nombre, Materia, Tareas, Trabajos grupales.</p>
+  <p>Carga un archivo Excel con las columnas: Nombre, Materia, Tareas, Trabajos grupales, Examenes.</p>
 
   <div class="upload-section">
     <input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" />
@@ -19,6 +19,7 @@
             <th>Materia</th>
             <th>Tareas</th>
             <th>Trabajos Grupales</th>
+            <th>Examenes</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +27,8 @@
             <td>{{ grade.studentName }}</td>
             <td>{{ grade.subject }}</td>
             <td>{{ grade.homework }}</td>
-            <td>{{ grade.groupWork }}</td>
+            <td>{{ grade.groupwork }}</td>
+            <td>{{ grade.exams }}</td>
           </tr>
         </tbody>
       </table>

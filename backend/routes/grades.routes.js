@@ -52,7 +52,7 @@ router.put('/bulk-update', async (req, res) => {
         update: { 
           $set: { 
             homework: grade.homework,
-            groupWork: grade.groupWork,
+            groupwork: grade.groupwork,
             exams: grade.exams
           } 
         }

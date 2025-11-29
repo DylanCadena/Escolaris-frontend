@@ -45,10 +45,11 @@ export class UploadGradesComponent {
 
           this.gradesData = rows.map((row: any) => {
             return {
-              studentName: row[0], // Assuming order: Name, Subject, Homework, Group Work
-              subject: row[1],
-              homework: row[2],
-              groupWork: row[3]
+              studentName: row[0], // Name
+              subject: row[1],     // Subject
+              homework: row[2],    // Homework
+              groupwork: row[3],   // Group Work
+              exams: row[4]        // Exams
             };
           });
         }
@@ -62,6 +63,7 @@ export class UploadGradesComponent {
       alert('No hay datos para subir');
       return;
     }
+    console.log(this.gradesData);
 
     this.gradesService.uploadGrades(this.gradesData).subscribe({
       next: (res) => {

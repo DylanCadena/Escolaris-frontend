@@ -12,11 +12,6 @@ import { RouterModule } from '@angular/router';
 export class SidebarComponent {
   menuItems = [
     {
-      icon: 'fas fa-users',
-      label: 'Gestión de grupo',
-      route: '/dashboard/groups'
-    },
-    {
       icon: 'fas fa-upload',
       label: 'Subir calificaciones',
       route: '/dashboard/upload-grades'
@@ -25,11 +20,6 @@ export class SidebarComponent {
       icon: 'fas fa-edit',
       label: 'Registrar calificaciones',
       route: '/dashboard/register-grades'
-    },
-    {
-      icon: 'fas fa-chart-bar',
-      label: 'Reportes',
-      route: '/dashboard/reports'
     },
   ];
 }

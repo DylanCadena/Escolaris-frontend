@@ -17,4 +17,8 @@ export class GradesService {
  getGrades(): Observable<any> {
   return this.http.get(this.apiUrl);
  }
+
+ updateGrades(grades: any[]): Observable<any> {
+  return this.http.put(`${this.apiUrl}/bulk-update`, grades);
+ }
 }

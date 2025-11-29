@@ -1,16 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Student {
-  id: number;
-  name: string;
-  deberes: number | null;
-  trabajosGrupales: number | null;
-  actuaciones: number | null;
-  promedio: number;
-  status: 'approved' | 'risk' | 'failed';
-}
+import { GradesService } from '../../../../core/services/grades.service';
 
 @Component({
   selector: 'app-register-grades',
@@ -25,25 +16,40 @@ export class RegisterGradesComponent {
   selectedPeriod: string = '';
   selectedEvaluation: string = '';
 
-  students: Student[] = [
-    { id: 1, name: 'ARAUJO QUIROGA, ZAMIRA YAMILEDT', deberes: 10.00, actuaciones: 8.50, trabajosGrupales: 8.00, promedio: 0, status: 'approved' },
-    { id: 2, name: 'ARROBO CHARIGUAMAN, JERONIMO SEBASTIAN', deberes: 10.00, actuaciones: 7.00, trabajosGrupales: 6.00, promedio: 0, status: 'approved' },
-    { id: 3, name: 'CARVAJAL LEON, DENIS THALEZWER', deberes: 10.00, actuaciones: 9.00, trabajosGrupales: 8.50, promedio: 0, status: 'approved' },
-    { id: 4, name: 'BLACK ARANDA, CARLOS FERNANDO', deberes: 10.00, actuaciones: 6.00, trabajosGrupales: 5.00, promedio: 0, status: 'approved' },
-    { id: 5, name: 'BRITO VARGAS, MILTON RENE', deberes: 10.00, actuaciones: 5.50, trabajosGrupales: 4.00, promedio: 0, status: 'approved' }
-  ];
+  students: any[] = [];
+
+  constructor(private gradesService: GradesService) { }
 
   ngOnInit() {
-    this.calculateAllAverages();
+    this.loadGrades();
   }
 
-  calculateAverage(student: Student): void {
+  loadGrades() {
+    this.gradesService.getGrades().subscribe({
+      next: (data) => {
+        this.students = data.map((grade: any) => ({
+          ...grade,
+          name: grade.studentName,
+          materia: grade.subject,
+          deberes: grade.homework,
+          trabajosGrupales: grade.groupwork,
+          examenes: grade.exams || 0,
+          promedio: 0,
+          status: 'approved'
+        }));
+        this.calculateAllAverages();
+      },
+      error: (err) => console.error('Error loading grades', err)
+    });
+  }
+
+  calculateAverage(student: any): void {
     const deberes = student.deberes || 0;
     const trabajosGrupales = student.trabajosGrupales || 0;
-    const actuaciones = student.actuaciones || 0;
-    
-    student.promedio = (deberes + trabajosGrupales + actuaciones) / 3;
-    
+    const examenes = student.examenes || 0;
+
+    student.promedio = (deberes + trabajosGrupales + examenes) / 3;
+
     if (student.promedio >= 7) {
       student.status = 'approved';
     } else if (student.promedio >= 5) {
@@ -57,12 +63,24 @@ export class RegisterGradesComponent {
     this.students.forEach(student => this.calculateAverage(student));
   }
 
-  onGradeChange(student: Student): void {
+  onGradeChange(student: any): void {
     this.calculateAverage(student);
   }
 
   saveGrades(): void {
-    console.log('Guardando calificaciones...', this.students);
-    alert('Calificaciones guardadas correctamente');
+    const updates = this.students.map(s => ({
+      _id: s._id,
+      homework: s.deberes,
+      groupwork: s.trabajosGrupales,
+      exams: s.examenes
+    }));
+
+    this.gradesService.updateGrades(updates).subscribe({
+      next: () => alert('Calificaciones guardadas correctamente'),
+      error: (err) => {
+        console.error('Error saving grades', err);
+        alert('Error al guardar calificaciones');
+      }
+    });
   }
 }
